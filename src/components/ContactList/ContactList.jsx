@@ -1,6 +1,11 @@
 import { Wrapper, Button } from './ContactList.styled';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/phonebookSlice';
 
-export const ContactList = ({ contacts, onDelete }) => {
+export const ContactList = () => {
+  const contacts = useSelector(state => state.phonebook.contacts);
+  const dispatch = useDispatch();
   return (
     <ul>
       {contacts.map(({ id, name, number }) => {
@@ -9,7 +14,7 @@ export const ContactList = ({ contacts, onDelete }) => {
             <li>
               {name}: {number}
             </li>
-            <Button onClick={() => onDelete(id)} type="button">
+            <Button onClick={() => dispatch(deleteContact(id))} type="button">
               Delete
             </Button>
           </Wrapper>
